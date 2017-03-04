@@ -1,0 +1,24 @@
+#!/home/tools/bin/64/expect
+
+set timeout 10
+
+set user [lindex $argv 0]
+set hostname [lindex $argv 1]
+set password [lindex $argv 2]
+set command [lindex $argv 3]
+
+spawn ssh $user@$hostname "$command"
+
+expect { 
+    "(yes/no)?" { 
+        send "yes\n"
+        expect "assword:"
+        send "$password\n"
+    } 
+
+    "assword:" { 
+        send "$password\n"
+    } 
+}
+expect eof
+
