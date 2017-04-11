@@ -30,7 +30,7 @@ class ThreadPool(object):
         self.thread_num = thread_num
 
         self._stop = False
-        self._lock = threading.Lock()
+        # self._lock = threading.Lock()
 
     def add_task(self, call_func, *func_args):
         """
