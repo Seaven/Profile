@@ -1,0 +1,15 @@
+set max-completions 5
+set history save on
+set history size 90000
+
+source /home/disk6/hekai/env/gdb_script/libstdcxx/v6/uuid.py
+source /home/disk6/hekai/env/gdb_script/libstdcxx/v6/phmap.py
+source /home/disk6/hekai/env/gdb_script/libstdcxx/v6/pcol.py
+
+
+python
+import sys
+sys.path.insert(0, '/home/disk6/env/gdb_script')
+from libstdcxx.v6.printers import register_libstdcxx_printers
+register_libstdcxx_printers (None)
+end
