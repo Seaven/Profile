@@ -1,0 +1,59 @@
+#!/bin/bash
+
+declare -A PASSWD
+PASSWD["sr"]="sr@test"
+PASSWD["jenkins"]="dorisdb@test"
+
+CUR_DIR=$(
+	cd $(dirname $0)
+	pwd
+)
+
+usage() {
+	echo "Usage: sshp [-l user] [-c] host"
+	echo "  -l user  login as user"
+	echo "  -c       copy ssh key to host"
+	exit -1
+}
+
+user=$USER
+copy=0
+input=$1
+
+if [[ $# > 1 ]]; then
+	shift
+	echo $@
+	while getopts :l:c opt; do
+		case $opt in
+		l)
+			user=$OPTARG
+			;;
+		c)
+			copy=1
+			;;
+		*)
+			echo "Invalid option: $opt"
+			;;
+		esac
+	done
+fi
+
+if [[ "" != $(echo $input | grep "@") ]]; then
+	user=$(echo $input | grep -Pao '\w.+(?=@)')
+	host=$(echo $input | grep -Pao '(?<=@)\w.+')
+	pswd=${PASSWD[$user]}
+else
+	host=$input
+	user=$user
+	pswd=${PASSWD[$user]}
+fi
+
+if [[ "" != $host ]]; then
+	if [[ $copy -eq 1 ]]; then
+		$CUR_DIR/cmd.expect ssh-copy-id $host $user $pswd
+	else
+		$CUR_DIR/cmd.expect ssh $host $user $pswd
+	fi
+else
+	ssh $user@$host
+fi
