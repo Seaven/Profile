@@ -1,0 +1,20 @@
+[user]
+  email = seaven_7@qq.com
+    name = Seaven
+[github]    
+    user = Seaven    
+    token = 2bbce8cd4ff8a7413d02be3b59452c6de05c4fde    
+[credential]    
+    helper = store   
+[alias]
+    st=status
+    co=checkout
+    cp=cherry-pick
+    ci=commit
+    rs=reset
+[core]
+	editor = nvim
+	pager = cat
+[pager]
+    log = less
+    diff = less
