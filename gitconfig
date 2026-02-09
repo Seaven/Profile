@@ -3,7 +3,6 @@
     name = Seaven
 [github]    
     user = Seaven    
-    token = 2bbce8cd4ff8a7413d02be3b59452c6de05c4fde    
 [credential]    
     helper = store   
 [alias]
